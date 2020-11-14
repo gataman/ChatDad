@@ -1,0 +1,13 @@
+{
+  "name": "chat-dad",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Gürcan ATAMAN <gurcanataman@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/gataman/ChatDad",
+  "dependencies": {
+    "angular": "^1.8.2"
+  }
+}
