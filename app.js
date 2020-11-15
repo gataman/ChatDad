@@ -15,9 +15,6 @@ const authRouter = require('./routes/auth');
 const chatRouter = require('./routes/chat');
 
 
-
-console.log(process.env.NAME);
-
 const app = express();
 
 //helpers
