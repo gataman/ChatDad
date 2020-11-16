@@ -8,6 +8,8 @@ io.use(socketAutherization);
 
 // libs
 const Users = require('./lib/Users')
+const Rooms = require('./lib/Rooms')
+const Messages = require('./lib/Messages')
 
 // Redis adapter
 const redisAdapter = require('socket.io-redis');
@@ -23,6 +25,28 @@ io.on('connection',socket =>{
     Users.list(users => {
        io.emit('onlineList',users);
     })
+
+    Rooms.list(rooms => {
+        io.emit('activeRooms',rooms);
+     })
+
+    socket.on('newRoom', roomName => {
+        Rooms.upsert(roomName);
+        Rooms.list(rooms => {
+            io.emit('activeRooms',rooms);
+         })
+    })
+
+    socket.on('newMessage', data => {
+
+        Messages.upsert({...data, 
+            userId: socket.request.user._id,
+            username : socket.request.user.name,
+            surname : socket.request.user.surname,
+        });
+    })
+
+
 
     socket.on('disconnect', () => {
         Users.remove(socket.request.user.googleID);
